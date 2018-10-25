@@ -45,6 +45,7 @@ public class DBManagerImpl implements DBManager {
 
     /**
      * This method is used to query and get population data by country.
+     * @param connection
      * @return - a list of immutable pairs with each pair comprising of country
      * name and corresponding population as in the database
      */
