@@ -4,9 +4,7 @@ import com.quickbase.devint.*;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * The main method of the executable JAR generated from this repository. This is to let you
@@ -27,8 +25,12 @@ public class Main {
             System.exit(1);
         }
 
-        List<Pair<String, Integer>> databaseList = dbm.selectPopulationByCountry(c);
+        Map<String, Integer> databaseList = dbm.selectPopulationByCountry(c);
         List<Pair<String, Integer>> concreteList = is.GetCountryPopulations();
+
+        System.out.println("Size of list from Database data: " + databaseList.size());
+        System.out.println("Size of list from Concrete (API) data: " + concreteList.size());
+
         List<Pair<String, Integer>> finalList =
                 transformData.combinePopulationLists(databaseList,concreteList);
 
@@ -39,8 +41,6 @@ public class Main {
             System.out.println(pair.getLeft() + '\t' + pair.getValue().toString());
         }
         System.out.println("\n");
-        System.out.println("Size of list from Database data: " + databaseList.size());
-        System.out.println("Size of list from Concrete (API) data: " + concreteList.size());
         System.out.println("Size of final merged list: " + finalList.size());
     }
 }

@@ -3,6 +3,7 @@ package com.quickbase.devint;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author akshat
@@ -21,7 +22,7 @@ public interface TransformData {
      * @return - combined list of country-population pairs made out of lists
      * from sql and API reference without duplicate entries
      */
-    public List<Pair<String, Integer>> combinePopulationLists(List<Pair<String, Integer>> databaseList,
-                                                              List<Pair<String, Integer>> concreteList);
+    public List<Pair<String, Integer>> combinePopulationLists(Map<String,
+                Integer> databaseList, List<Pair<String, Integer>> concreteList);
 
 }

@@ -5,7 +5,9 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This DBManager implementation provides a connection to the database containing population data.
@@ -46,25 +48,27 @@ public class DBManagerImpl implements DBManager {
     /**
      * This method is used to query and get population data by country.
      * @param connection
-     * @return - a list of immutable pairs with each pair comprising of country
-     * name and corresponding population as in the database
+     * @return - a map comprising of country name and corresponding
+     * population as in the database
      */
-    public List<Pair<String, Integer>> selectPopulationByCountry(Connection connection){
-        List<Pair<String, Integer>> output = new ArrayList<>();
-
+    public Map<String, Integer> selectPopulationByCountry(Connection connection){
+//        List<Pair<String, Integer>> output = new ArrayList<>();
+        Map<String, Integer> hashMap = new HashMap<>();
         try (Connection conn = connection;
              Statement stmt  = conn.createStatement();
              ResultSet rs    = stmt.executeQuery(sqlQuery)){
 
             // loop through the result set
             while (rs.next()) {
-                output.add(new ImmutablePair<>(rs.getString("CountryName"),
-                        rs.getInt("Population")));
+//                output.add(new ImmutablePair<>(rs.getString("CountryName"),
+//                        rs.getInt("Population")));
+                hashMap.put(rs.getString("CountryName"), rs.getInt(
+                        "Population"));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return output;
+        return hashMap;
     }
 
 }
